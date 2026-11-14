@@ -24,8 +24,20 @@ body {
   pointer-events: none;
 }
 
+#map svg circle,
+.legend > div {
+  --color-departures: steelblue;
+  --color-arrivals: darkorange;
+
+  --color: color-mix(
+    in oklch,
+    var(--color-departures) calc(100% * var(--departure-ratio)),
+    var(--color-arrivals)
+  );
+}
+
 #map svg circle {
-  fill: steelblue;
+  fill: var(--color);
   fill-opacity: 60%;
   stroke: white;
   pointer-events: auto;
@@ -41,7 +53,9 @@ header {
 label {
   margin-left: auto;
 }
-
+input[type="range"] {
+  width: 400px;
+}
 time,
 em {
   display: block;
@@ -57,4 +71,26 @@ em {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   position: relative;
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  gap: 2em;
+  margin-block: 1em;
+}
+
+.legend > div {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.legend > div::before {
+  content: "";
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background: var(--color);
+  border-radius: 50%;
 }

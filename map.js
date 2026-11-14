@@ -77,6 +77,8 @@ function filterTripsbyTime(trips, timeFilter) {
       });
 }
 
+let stationFlow = d3.scaleQuantize().domain([0, 1]).range([0, 0.5, 1]);
+
 map.on("load", async () => {
   //code
   map.addSource("boston_route", {
@@ -183,7 +185,10 @@ map.on("load", async () => {
           .text(
             `${d.totalTraffic} trips (${d.departures} departures, ${d.arrivals} arrivals)`,
           );
-      });
+      })
+      .style("--departure-ratio", (d) =>
+        stationFlow(d.totalTraffic === 0 ? 0 : d.departures / d.totalTraffic),
+      );
     // Function to update circle positions when the map moves/zooms
     function updatePositions() {
       circles
@@ -236,6 +241,9 @@ map.on("load", async () => {
         .data(filteredStations, (d) => d.short_name)
         .join("circle")
         .attr("r", (d) => radiusScale(d.totalTraffic))
+        .style("--departure-ratio", (d) =>
+          stationFlow(d.totalTraffic === 0 ? 0 : d.departures / d.totalTraffic),
+        )
         .each(function (d) {
           d3.select(this)
             .select("title")
