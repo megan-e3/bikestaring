@@ -1,7 +1,7 @@
 html,
 body {
   margin: 0;
-  padding: 5;
+  padding: 5px;
   height: 100%;
   width: 100%;
   display: flex;
@@ -29,4 +29,32 @@ body {
   fill-opacity: 60%;
   stroke: white;
   pointer-events: auto;
+}
+
+header {
+  display: flex;
+  gap: 1em;
+  align-items: baseline;
+  width: 100%;
+}
+
+label {
+  margin-left: auto;
+}
+
+time,
+em {
+  display: block;
+}
+
+em {
+  color: gray;
+}
+
+#map {
+  width: 100%;
+  height: calc(100% - 80px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  position: relative;
 }
